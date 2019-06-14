@@ -1,5 +1,7 @@
 package com.skewpixel.jrl.map;
 
+import com.skewpixel.jrl.mobs.Creature;
+
 import java.awt.*;
 
 public class World {
@@ -36,5 +38,25 @@ public class World {
 
     public int getHeight() {
         return height;
+    }
+
+    public void dig(int wx, int wy) {
+        if(getTileAt(wx, wy).isDiggable()) {
+            tiles[wx][wy] = Tile.FLOOR;
+        }
+    }
+
+    public void addAtEmptyLocation(Creature creature) {
+        int x;
+        int y;
+
+        do {
+            x = (int) Math.random() * width;
+            y = (int) Math.random() * height;
+        }
+        while(!getTileAt(x, y).isGround());
+
+        creature.x = x;
+        creature.y = y;
     }
 }
